@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2em auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 1em;
+        }
+        button {
+            padding: 0.5em 1em;
+            font-size: 1em;
+        }
+        table {
+            margin: 2em auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 0.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emotion Analysis</h1>
+    <form method="POST">
+        <textarea name="text" placeholder="Enter text here">{{ input_text }}</textarea><br>
+        <button type="submit">Analyze Emotion</button>
+    </form>
+    
+    {% if result %}
+        <h2>Emotion Scores</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Emotion</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emotion in result %}
+                <tr>
+                    <td>{{ emotion.label }}</td>
+                    <td>{{ emotion.score|round(4) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
